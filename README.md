@@ -37,7 +37,6 @@ After installing the GLiNER library, you can easily load a GLiNER-biomed model a
 ```python
 from gliner import GLiNER
 
-# Initialize GLiNER with a biomedical model (large variant example)
 model = GLiNER.from_pretrained("Ihor/gliner-biomed-large-v1.0")
 
 text = """
@@ -46,13 +45,10 @@ He was prescribed Metformin 500mg twice daily and Lisinopril 10mg once daily.
 A recent lab test showed elevated HbA1c levels at 8.2%.
 """
 
-# Biomedical labels for entity prediction
 labels = ["Disease", "Drug", "Drug dosage", "Drug frequency", "Lab test", "Lab test value", "Demographic information"]
 
-# Perform entity prediction
 entities = model.predict_entities(text, labels, threshold=0.5)
 
-# Display predicted entities and their labels
 for entity in entities:
     print(entity["text"], "=>", entity["label"])
 ```
