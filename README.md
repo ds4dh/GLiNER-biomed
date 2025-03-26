@@ -1,5 +1,5 @@
 # GLiNER-biomed
-**Repository Under Construction**
+**Repository under construction**
 
 ---
 
@@ -9,11 +9,11 @@ GLiNER-biomed introduces a specialized suite of efficient open biomedical Named 
 
 This repository is currently under development. Complete resources, including data, training pipelines, and further documentation, will soon be available here.
 
-## 🚀 Publicly Available Models
+## 🚀 Publicly available models
 
 We publicly released pre-trained GLiNER-biomed models at multiple scales and variants (uni-encoder and bi-encoder). You can directly access and use these models from Hugging Face Hub:
 
-| Model Type | Uni-encoder Model | Bi-encoder Model |
+| Model type | Uni-encoder model | Bi-encoder model |
 |------------|-------------------|------------------|
 | **Small**  | [gliner-biomed-small-v1.0](https://huggingface.co/Ihor/gliner-biomed-small-v1.0) | [gliner-biomed-bi-small-v1.0](https://huggingface.co/Ihor/gliner-biomed-bi-small-v1.0) |
 | **Base**   | [gliner-biomed-base-v1.0](https://huggingface.co/Ihor/gliner-biomed-base-v1.0) | [gliner-biomed-bi-base-v1.0](https://huggingface.co/Ihor/gliner-biomed-bi-base-v1.0) |
@@ -21,7 +21,7 @@ We publicly released pre-trained GLiNER-biomed models at multiple scales and var
 
 ---
 
-## 📦 Installation & Usage
+## 📦 Installation & usage
 
 ### Installation
 
@@ -30,7 +30,7 @@ Install the official GLiNER library with pip:
 pip install gliner
 ```
 
-### Usage Example (Biomedical Domain)
+### Usage example
 
 After installing the GLiNER library, you can easily load a GLiNER-biomed model and perform named entity recognition:
 
@@ -86,7 +86,7 @@ Citation not available yet.
 
 ---
 
-## 🛠️ Repository Status
+## 🛠️ Repository status
 
 ⚠️ **This repository is currently under construction.**  
 Updates, full documentation, and complete pipelines will soon be available.
