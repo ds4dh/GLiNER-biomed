@@ -77,7 +77,15 @@ For more detailed documentation and usage examples, visit the official [GLiNER r
 If you use GLiNER-biomed models or resources in your research, please cite our work:
 
 ```
-Citation not available yet.
+@misc{yazdani2025glinerbiomedsuiteefficientmodels,
+      title={GLiNER-biomed: A Suite of Efficient Models for Open Biomedical Named Entity Recognition}, 
+      author={Anthony Yazdani and Ihor Stepanov and Douglas Teodoro},
+      year={2025},
+      eprint={2504.00676},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2504.00676}, 
+}
 ```
 
 ---
