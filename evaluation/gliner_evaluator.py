@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import argparse
 import json
 import torch
@@ -11,6 +12,7 @@ import unicodedata
 
 from gliner import GLiNER
 from gliner.data_processing.collator import DataCollator
+
 
 def to_safe_filename(filename: str, replacement: str = '_', max_length: int = 255) -> str:
     """
@@ -30,6 +32,7 @@ def to_safe_filename(filename: str, replacement: str = '_', max_length: int = 25
         safe = safe[:max_length]
     return safe if safe else "untitled"
 
+
 def get_unique_entity_types(data_path: str) -> List[str]:
     """Extract all unique entity types from dataset and sort them alphabetically."""
     with open(data_path, 'r', encoding='utf-8') as f:
@@ -40,9 +43,10 @@ def get_unique_entity_types(data_path: str) -> List[str]:
             unique_types.add(label)
     return sorted(list(unique_types))
 
+
 class NEREvaluator:
     """Core evaluation logic for NER tasks."""
-    def __init__(self, dataset: List[Dict], true_entities: List, pred_entities: List, 
+    def __init__(self, dataset: List[Dict], true_entities: List, pred_entities: List,
                  span_based: bool = False):
         self.dataset = dataset
         self.true_entities = true_entities
@@ -88,31 +92,56 @@ class NEREvaluator:
         global_counts = {'tp': 0, 'fp': 0, 'fn': 0}
         precision_scores, recall_scores, f1_scores = [], [], []
 
-        for t, p in zip(true, pred):
-            true_set = set(t)
-            pred_set = set(p)
-            
-            self.raw_comparisons.append({
-                'ground_truth': list(true_set),
-                'predictions': list(pred_set)
-            })
-
-            # Count predictions
-            for item in pred_set:
-                key = item[2] if self.span_based else item[1]
-                if item in true_set:
-                    metrics[key]['tp'] += 1
-                    global_counts['tp'] += 1
-                else:
-                    metrics[key]['fp'] += 1
-                    global_counts['fp'] += 1
-
-            # Count missed true entities
-            for item in true_set:
-                key = item[2] if self.span_based else item[1]
-                if item not in pred_set:
-                    metrics[key]['fn'] += 1
-                    global_counts['fn'] += 1
+        if self.span_based:
+            # Relaxed span evaluation: a prediction is correct if its span overlaps with a ground truth span of the same label.
+            for t_entities, p_entities in zip(true, pred):
+                self.raw_comparisons.append({
+                    'ground_truth': list(t_entities),
+                    'predictions': list(p_entities)
+                })
+                matched_true = [False] * len(t_entities)
+                for p in p_entities:
+                    p_start, p_end, p_label = p
+                    found = False
+                    for i, t in enumerate(t_entities):
+                        t_start, t_end, t_label = t
+                        if not matched_true[i] and p_label == t_label:
+                            # Check for overlap: spans overlap if p_start <= t_end and t_start <= p_end.
+                            if p_start <= t_end and t_start <= p_end:
+                                matched_true[i] = True
+                                found = True
+                                metrics[p_label]['tp'] += 1
+                                global_counts['tp'] += 1
+                                break
+                    if not found:
+                        metrics[p_label]['fp'] += 1
+                        global_counts['fp'] += 1
+                for t, matched in zip(t_entities, matched_true):
+                    if not matched:
+                        t_label = t[2]
+                        metrics[t_label]['fn'] += 1
+                        global_counts['fn'] += 1
+        else:
+            for t_entities, p_entities in zip(true, pred):
+                true_set = set(t_entities)
+                pred_set = set(p_entities)
+                self.raw_comparisons.append({
+                    'ground_truth': list(true_set),
+                    'predictions': list(pred_set)
+                })
+                for item in pred_set:
+                    key = item[1]
+                    if item in true_set:
+                        metrics[key]['tp'] += 1
+                        global_counts['tp'] += 1
+                    else:
+                        metrics[key]['fp'] += 1
+                        global_counts['fp'] += 1
+                for item in true_set:
+                    key = item[1]
+                    if item not in pred_set:
+                        metrics[key]['fn'] += 1
+                        global_counts['fn'] += 1
 
         # Calculate per-class metrics
         results = {}
@@ -123,8 +152,8 @@ class NEREvaluator:
             
             precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
             recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
-            f1 = (2 * (precision * recall) / (precision + recall)) if (precision + recall) > 0 else 0.0  # Fixed parenthesis
-
+            f1 = (2 * (precision * recall) / (precision + recall)) if (precision + recall) > 0 else 0.0
+            
             results[label] = {
                 'tp': tp,
                 'fp': fp,
@@ -145,8 +174,7 @@ class NEREvaluator:
         
         micro_precision = micro_tp / (micro_tp + micro_fp) if (micro_tp + micro_fp) > 0 else 0.0
         micro_recall = micro_tp / (micro_tp + micro_fn) if (micro_tp + micro_fn) > 0 else 0.0
-        micro_f1 = (2 * (micro_precision * micro_recall) / 
-                   (micro_precision + micro_recall)) if (micro_precision + micro_recall) > 0 else 0.0
+        micro_f1 = (2 * (micro_precision * micro_recall) / (micro_precision + micro_recall)) if (micro_precision + micro_recall) > 0 else 0.0
 
         # Calculate macro-averaged metrics
         macro_precision = sum(precision_scores)/len(precision_scores) if precision_scores else 0.0
@@ -176,12 +204,12 @@ class NEREvaluator:
         """Run the full evaluation pipeline."""
         metrics = self._calculate_metrics()
         correct = sum(1 for comp in self.raw_comparisons 
-                     if set(comp['predictions']) == set(comp['ground_truth']))
+                      if set(comp['predictions']) == set(comp['ground_truth']))
         accuracy = correct / len(self.raw_comparisons) if self.raw_comparisons else 0
         
         with open('raw_results.json', 'w') as f:
             json.dump(self.raw_comparisons, f, indent=2)
-
+        
         return {
             'entity_metrics': metrics['per_class'],
             'micro_metrics': metrics['micro'],
@@ -189,6 +217,7 @@ class NEREvaluator:
             'accuracy': round(accuracy, 4),
             'total_samples': len(self.raw_comparisons)
         }
+
 
 class GLiNEREvaluationPipeline:
     """End-to-end evaluation pipeline for GLiNER models."""
@@ -268,6 +297,7 @@ class GLiNEREvaluationPipeline:
         )
         return evaluator.evaluate()
 
+
 def main(args):
     args.entity_types = get_unique_entity_types(args.data_path)
     
@@ -319,6 +349,7 @@ def main(args):
     
     print(f"\nPer-entity metrics saved in {output_file}")
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="GLiNER Evaluation Script")
     
@@ -331,11 +362,9 @@ if __name__ == "__main__":
     parser.add_argument("--device", type=str, default="cuda:0" if torch.cuda.is_available() else "cpu",
                         help="Device for evaluation (e.g., 'cuda:0' or 'cpu')")
     
-    group_span = parser.add_mutually_exclusive_group()
-    group_span.add_argument("--span_evaluation", dest="span_evaluation", action="store_true",
-                        help="Enable span-based evaluation (default)")
-    group_span.add_argument("--no-span_evaluation", dest="span_evaluation", action="store_false",
-                        help="Disable span-based evaluation")
+    # Only relaxed span evaluation is supported; default is relaxed span evaluation.
+    parser.add_argument("--span_evaluation", dest="span_evaluation", action="store_true",
+                        help="Enable relaxed span-based evaluation (default)")
     parser.set_defaults(span_evaluation=True)
     
     parser.add_argument("--flat_ner", dest="flat_ner", action="store_true", help="Enable flat NER decoding")
