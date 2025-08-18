@@ -19,6 +19,13 @@ We publicly released pre-trained GLiNER-biomed models at multiple scales and var
 | **Base**   | [gliner-biomed-base-v1.0](https://huggingface.co/Ihor/gliner-biomed-base-v1.0) | [gliner-biomed-bi-base-v1.0](https://huggingface.co/Ihor/gliner-biomed-bi-base-v1.0) |
 | **Large**  | [gliner-biomed-large-v1.0](https://huggingface.co/Ihor/gliner-biomed-large-v1.0) | [gliner-biomed-bi-large-v1.0](https://huggingface.co/Ihor/gliner-biomed-bi-large-v1.0) |
 
+## 📚 Released corpora
+
+To support reproducibility and further research, we also release the corpora used in pre- and post-training stages:
+
+- [Pre-training corpus](https://huggingface.co/datasets/anthonyyazdaniml/gliner-biomed-pre-training)
+- [Post-training corpus](https://huggingface.co/datasets/anthonyyazdaniml/gliner-biomed-post-training)
+
 ---
 
 ## 📦 Installation & usage
