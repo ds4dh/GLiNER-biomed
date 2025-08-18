@@ -26,6 +26,12 @@ To support reproducibility and further research, we also release the corpora use
 - [Pre-training corpus](https://huggingface.co/datasets/anthonyyazdaniml/gliner-biomed-pre-training)
 - [Post-training corpus](https://huggingface.co/datasets/anthonyyazdaniml/gliner-biomed-post-training)
 
+## 🧩 Synthetic annotation model
+
+We also release the synthetic annotation model used to generate large-scale biomedical entity annotations:
+
+- [OpenBioLLM-Text2Graph-8B](https://huggingface.co/Ihor/OpenBioLLM-Text2Graph-8B)
+
 ---
 
 ## 📦 Installation & usage
