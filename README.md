@@ -11,7 +11,7 @@ This repository is currently under development. Complete resources, including da
 
 ## 🚀 Publicly available models
 
-We publicly released pre-trained GLiNER-biomed models at multiple scales and variants (uni-encoder and bi-encoder). You can directly access and use these models from Hugging Face Hub:
+We publicly released pre-trained GLiNER-BioMed models at multiple scales and variants (uni-encoder and bi-encoder). You can directly access and use these models from Hugging Face Hub:
 
 | Model type | Uni-encoder model | Bi-encoder model |
 |------------|-------------------|------------------|
