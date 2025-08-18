@@ -1,4 +1,11 @@
-```python
+The GLiNER-BioMed curated corpora are available on Hugging Face:
+
+* [Curated corpus](https://huggingface.co/datasets/anthonyyazdaniml/gliner-biomed-curated-corpus)
+* [Balanced curated corpus](https://huggingface.co/datasets/anthonyyazdaniml/gliner-biomed-balanced-curated-corpus) (equal representation across all data sources)
+
+We also provide preprocessing code to replicate the curation steps:
+
+```bash
 # Pubmed abstracts
 python A0_download_abstracts.py
 python A2_abstract_cleaning_main.py --input_csv ./data/pubmed_raw_abstracts.csv --output_csv ./data/pubmed_clean_abstracts.csv
