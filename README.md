@@ -1,11 +1,11 @@
-# GLiNER-biomed
+# GLiNER-BioMed
 **Repository under construction**
 
 ---
 
 ## 🔬 Overview
 
-GLiNER-biomed introduces a specialized suite of efficient open biomedical Named Entity Recognition (NER) models based on the GLiNER framework. GLiNER-biomed leverages synthetic annotations distilled from large generative biomedical language models to achieve state-of-the-art zero-shot and few-shot performance in biomedical entity recognition tasks.
+GLiNER-BioMed introduces a specialized suite of efficient open biomedical Named Entity Recognition (NER) models based on the GLiNER framework. GLiNER-BioMed leverages synthetic annotations distilled from large generative biomedical language models to achieve state-of-the-art zero-shot and few-shot performance in biomedical entity recognition tasks.
 
 This repository is currently under development. Complete resources, including data, training pipelines, and further documentation, will soon be available here.
 
@@ -39,7 +39,7 @@ pip install gliner
 
 ### Usage example
 
-After installing the GLiNER library, you can easily load a GLiNER-biomed model and perform named entity recognition:
+After installing the GLiNER library, you can easily load a GLiNER-BioMed model and perform named entity recognition:
 
 ```python
 from gliner import GLiNER
@@ -81,7 +81,7 @@ For more detailed documentation and usage examples, visit the official [GLiNER r
 
 ## 📌 Citation
 
-If you use GLiNER-biomed models or resources in your research, please cite our work:
+If you use GLiNER-BioMed models or resources in your research, please cite our work:
 
 ```
 @misc{yazdani2025glinerbiomedsuiteefficientmodels,
