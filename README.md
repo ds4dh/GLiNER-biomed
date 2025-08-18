@@ -99,5 +99,3 @@ If you use GLiNER-BioMed models or resources in your research, please cite our w
 ```
 
 ---
-
-🌟 **Stay tuned!**
