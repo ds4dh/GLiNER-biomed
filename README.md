@@ -1,13 +1,10 @@
 # GLiNER-BioMed
-**Repository under construction**
 
 ---
 
 ## 🔬 Overview
 
 GLiNER-BioMed introduces a specialized suite of efficient open biomedical Named Entity Recognition (NER) models based on the GLiNER framework. GLiNER-BioMed leverages synthetic annotations distilled from large generative biomedical language models to achieve state-of-the-art zero-shot and few-shot performance in biomedical entity recognition tasks.
-
-This repository is currently under development. Complete resources, including data, training pipelines, and further documentation, will soon be available here.
 
 ## 🚀 Publicly available models
 
@@ -100,13 +97,6 @@ If you use GLiNER-BioMed models or resources in your research, please cite our w
       url={https://arxiv.org/abs/2504.00676}, 
 }
 ```
-
----
-
-## 🛠️ Repository status
-
-⚠️ **This repository is currently under construction.**  
-Updates, full documentation, and complete pipelines will soon be available.
 
 ---
 
