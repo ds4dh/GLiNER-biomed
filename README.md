@@ -1,5 +1,9 @@
 # GLiNER-BioMed
 
+<p align="center">
+  <img src="gliner_biomed.png" alt="GLiNER-BioMed logo">
+</p>
+
 ---
 
 ## 🔬 Overview
