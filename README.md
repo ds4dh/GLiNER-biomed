@@ -102,4 +102,8 @@ If you use GLiNER-BioMed models or resources in your research, please cite our w
 }
 ```
 
+## 🗂️ Repository scope
+
+This repository contains the codebase for data curation, teacher and post-training synthetic annotation, and model evaluation, together with links to all released artifacts. For model training, please refer to the official [GLiNER repository](https://github.com/urchade/GLiNER) and [HuggingFace](https://github.com/huggingface/peft).
+
 ---
